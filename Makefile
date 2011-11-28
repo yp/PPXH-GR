@@ -82,7 +82,7 @@ build: heu
 heu	:  $(OBJ)
 	@echo ' * Linking' $(PROG); \
 	mkdir -pv $(BIN_DIR) ; \
-	$(CC) $(LIBS) -o $(PROG) $(CFLAGS) $^
+	$(CC) -o $(PROG) $(CFLAGS) $^ $(LIBS)
 
 clean 	:
 	@echo 'Cleaning objects and programs' ; \
