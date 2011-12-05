@@ -125,6 +125,53 @@ simple 7x4 genotype matrix.
 
 
 
+### Computing the haplotype resolutions ###
+
+The Python script `hapmat2resolution.py` provides a simple way to
+post-process the output computed by `PPXH-GR` in order to obtain all the
+possible pairs of computed haplotypes that solve each xor-genotype.
+
+`hapmat2resolution.py` has two mandatory arguments:
+
+- `--input` (`-i`), which specifies the file containing the input
+  xor-genotype matrix;
+- `--output` (`-o`), which specifies the file containing the output
+  computed by `PPXH-GR`.
+
+The optional flag `--verbose` (`-v`) increases the verbosity of the log.
+
+`hapmat2resolution.py` extracts a most parsimonious haplotype matrix
+(ties are broken randomly) and uses it to compute the pairs of
+haplotypes which solve each xor-genotype.
+
+The output of `hapmat2resolution.py` is a [JSON](http://json.org/)
+object with the following properties:
+
+- `xor-genotypes`, an array of the input xor-genotypes (not necessarily
+  in the same order of file `--input`);
+- `haplotypes`, an array of the output haplotypes of the most
+  parsimonious haplotype matrix;
+- `resolutions`, an array of objects each one with the following
+  properties:
+  * `xor-genotype-id`, the identifier of the current xor-genotype
+    (w.r.t. property `xor-genotypes` of the first-level object);
+  * `xor-genotype-str`, the string representation of the current
+    xor-genotype;
+  * `haplotype-pairs`, an array of objects with the following
+    properties:
+      + `haplotype1-id`, the identifier of the first haplotype in the
+        pair that solves the current xor-genotype (w.r.t. property
+        `haplotypes` of the first-level object);
+      + `haplotype1-str`, the string representation of the first
+        haplotype;
+      + `haplotype2-id`, the identifier of the second haplotype in the
+        pair that solves the current xor-genotype (w.r.t. property
+        `haplotypes` of the first-level object);
+      + `haplotype2-str`, the string representation of the second
+        haplotype.
+
+
+
 ## License ##
 
 PPXH-GR is released under the terms of the GNU General Public License

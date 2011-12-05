@@ -606,7 +606,7 @@ solve_genotypes(pbmatrix X,
 					 bool* solved_gen,
 					 int * nsolved_gen) {
   pbmatrix Xpc= bmatrix_copy(Xp);
-  fprintf(stderr, "Solve genotypes on:\n");
+  fprintf(stderr, "Solving genotypes...\n");
 //  bmatrix_print(stderr, Xpc);
   int rango= bmatrix_gauss(Xpc);
   fprintf(stderr, "Matrix rank %d\n", rango);
@@ -618,11 +618,11 @@ solve_genotypes(pbmatrix X,
   }
   if (rango<Xp->nrow) {
 	 pbmatrix Xt= bmatrix_transpose_first_m_column(Xp, rango);
-	 fprintf(stderr, "Gauss on Xt\n");
+	 fprintf(stderr, "Applying Gauss algorithm on X^t...\n");
 	 bmatrix_gauss(Xt);
 //	 bmatrix_print(stderr, Xt);
 	 get_biggest_GR(X, Xt, H, nhap, solved_gen, nsolved_gen);
-	 fprintf(stderr, "Partial H\n");
+//	 fprintf(stderr, "Partial H\n");
 //	 bmatrix_print(stderr, H);
 	 if (X->nrow>*nsolved_gen) {
 		fprintf(stderr, "Genotype to solve %d\n", X->nrow-*nsolved_gen);
@@ -692,10 +692,12 @@ run(xgen_mat Xgm) {
 //  bmatrix_print(stderr, X);
 //  fprintf(stderr, "Haplotype Matrix\n");
 //  bmatrix_print(stderr, H);
-  printf("Genotype Matrix\n");
+  printf("==Genotype Matrix\n");
   bmatrix_basic_print(stdout, X);
-  printf("Haplotype Matrix\n");
+  printf("==END Genotype Matrix\n");
+  printf("==Haplotype Matrix\n");
   bmatrix_basic_print(stdout, H);
+  printf("==END Haplotype Matrix\n");
   printf("n. of genotypes: %d\n", X->nrow);
   printf("n. of snps: %d\n", X->ncol);
   printf("n. of distinct haplotypes: %d\n", nhap);
